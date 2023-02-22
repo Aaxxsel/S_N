@@ -10,12 +10,12 @@ class User(models.Model):
     created_date = models.DateField(auto_now_add=True)
 
 
-# class WallPost(models.Model):
-#     text = models.CharField(max_length=500)
-#     dateTime = models.DateField(auto_now_add=True)
-#     user = models.ForeignKey(to='User', on_delete=models.PROTECT)
-#
-#
+class WallPost(models.Model):
+    text = models.CharField(max_length=500)
+    dateTime = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(to='User', on_delete=models.PROTECT)
+
+
 # class Messages(models.Model):
 #     sender = models.ForeignKey(to='User', on_delete=models.PROTECT)
 #     recipient = models.ForeignKey(to='User', on_delete=models.PROTECT)
