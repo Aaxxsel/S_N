@@ -1,12 +1,12 @@
 from django.urls import path
 
-from blog.views import authorization
+from blog import views
 
 urlpatterns = [
-    path('', authorization),
-    path('registration', registration),
-    path('my_page', my_page),
-    path('news', news),
-    path('my_messages', my_messages),
-    path('documents', documents),
+    path('', views.index),
+    path('registration/', views.registration),
+    path('my_page/', views.my_page),
+    path('news/', views.news),
+    path('my_messages/', views.my_messages),
+    path('documents/', views.documents),
 ]

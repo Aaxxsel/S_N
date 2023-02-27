@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-def authorization(request):
-    return render(request, "blog/authorization_one.html")
+def index(request):
+    return render(request, "blog/authorization_one.html",)
 
 
 def registration(request):
@@ -11,7 +11,7 @@ def registration(request):
 
 
 def my_page(request):
-    return render(request, "blog/my_page.html")
+    return render(request, "blog/my_pag.html")
 
 
 def news(request):
@@ -24,3 +24,5 @@ def my_messages(request):
 
 def documents(request):
     return render(request, "blog/documents.html")
+
+
