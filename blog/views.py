@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import User
 from .forms import RegistrationForm, LoginForm
 from django.shortcuts import redirect
+from django.template import Context, Template
 
 
 def index(request):
@@ -19,7 +20,15 @@ def registration(request):
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             lastname = form.cleaned_data["lastname"]
-            user = User.objects.create(first_name=name, email=email, last_name=lastname, password=password)
+            password_conf = form.cleaned_data["password_conf"]
+            if password != password_conf:
+                return render(request, "blog/registration.html", context={"error_message": "пароли не совпадает"})
+            user = User.objects.filter(email=email)
+            if user:
+                return render(request, "blog/registration.html",
+                              context={"error_email": "этот email уже занят"})
+
+            User.objects.create(first_name=name, email=email, last_name=lastname, password=password)
 
             return redirect(authorization)
         else:
@@ -37,16 +46,19 @@ def authorization(request):
             password = form.cleaned_data["password"]
             user = User.objects.filter(email=email, password=password).first()
             if user:
-                return HttpResponse(f"добро пожаловать {user.first_name}")
+                return redirect(my_pag)
             else:
-                return HttpResponse("Пользователь не найден")
+                return render(request, "blog/authorization.html",
+                              context={"error_message": "Неверный логин или пароль"})
         else:
             return HttpResponse("не корректный ввод")
     elif request.method == 'GET':
         return render(request, "blog/authorization.html")
 
-# def my_page(request):
-#     return render(request, "blog/my_pag.html")
+
+def my_pag(request):
+    men = ['Главная страница', 'cообщения', 'друзья', 'новости', 'документы']
+    return render(request, "blog/my_pag.html", {'men': men})
 #
 #
 # def news(request):

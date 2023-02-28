@@ -8,6 +8,16 @@
 
 <form action="/registration/" method="post">
     {% csrf_token %}
+    {% if error_message %}
+        <h3 style="color: darkred">{{ error_message }}</h3>
+
+    {% endif %}
+
+    {% csrf_token %}
+    {% if error_email %}
+        <h3 style="color: darkred">{{ error_email}}</h3>
+
+    {% endif %}
     Введите имя:
     <input type='text' name="name"><br><br>
     Введите фамилию:
@@ -16,7 +26,11 @@
     <input type='text' name="email"><br><br>
     Введите пароль:
     <input type='password' name="password"><br><br>
+    Введите пароль второй раз:
+    <input type='password' name="password_conf"><br><br>
+
     <input type="submit" value="Принять">
+
 </form>
 
 

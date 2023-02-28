@@ -1,6 +1,12 @@
 
 <form action="/authorization/" method="post">
     {% csrf_token %}
+
+    {% if error_message %}
+        <h3 style="color: darkred">{{ error_message }}</h3>
+
+    {% endif %}
+
     Введите emeil:
     <input type='text' name="email"><br><br>
     Введите пароль:
