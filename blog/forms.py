@@ -1,9 +1,13 @@
-from django.forms import forms
+from django import forms
 
 
-class UserForm(forms.Form):
+class RegistrationForm(forms.Form):
     email = forms.EmailField()
-    password = forms.DecimalField(min_value=3, max_value=200)
-    name = forms.CharField()
+    password = forms.DecimalField()
+    name = forms.CharField(min_length=3)
+    lastname = forms.CharField(min_length=3)
 
 
+class LoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.DecimalField()

@@ -1,0 +1,9 @@
+
+<form action="/authorization/" method="post">
+    {% csrf_token %}
+    Введите emeil:
+    <input type='text' name="email"><br><br>
+    Введите пароль:
+    <input type='password' name="password"><br><br>
+    <input type="submit" value="Принять">
+</form>

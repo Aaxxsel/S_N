@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User
-from .forms import UserForm
+from .forms import RegistrationForm, LoginForm
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -12,15 +13,37 @@ def index(request):
 
 def registration(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data["name"]
-            return HttpResponse(f"<h2>Добро пожаловать, {name}</h2>")
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            lastname = form.cleaned_data["lastname"]
+            user = User.objects.create(first_name=name, email=email, last_name=lastname, password=password)
+
+            return redirect(authorization)
         else:
             return HttpResponse("не корректный ввод")
-    else:
-        form = User()
-        return render(request, "blog/registration.html", {"form": form})
+
+    elif request.method == 'GET':
+        return render(request, "blog/registration.html")
+
+
+def authorization(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = User.objects.filter(email=email, password=password).first()
+            if user:
+                return HttpResponse(f"добро пожаловать {user.first_name}")
+            else:
+                return HttpResponse("Пользователь не найден")
+        else:
+            return HttpResponse("не корректный ввод")
+    elif request.method == 'GET':
+        return render(request, "blog/authorization.html")
 
 # def my_page(request):
 #     return render(request, "blog/my_pag.html")
