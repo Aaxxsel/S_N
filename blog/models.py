@@ -15,7 +15,6 @@ class WallPost(models.Model):
     dateTime = models.DateField(auto_now_add=True)
     user = models.ForeignKey(to='User', on_delete=models.PROTECT)
 
-
 # class Messages(models.Model):
 #     sender = models.ForeignKey(to='User', on_delete=models.PROTECT)
 #     recipient = models.ForeignKey(to='User', on_delete=models.PROTECT)
