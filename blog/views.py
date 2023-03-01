@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 
 from .models import User, WallPost
 from .forms import RegistrationForm, LoginForm, New_wal_postForm
@@ -81,15 +81,26 @@ def log_out(request):
     return redirect('index')
 
 
-#
-#
-# def news(request):
-#     return render(request, "blog/news.html")
-#
-#
-# def my_messages(request):
-#     return render(request, "blog/my_messages.html")
-#
-#
-# def documents(request):
-#     return render(request, "blog/documents.html")
+@require_GET
+def friends(request):
+    friends_list = User.objects.filter().exclude(id=request.user.id)
+    return render(request, 'blog/friends.html', {'friendsList': friends_list})
+
+
+def friend(request, friend_id):
+    user = User.objects.filter(id=friend_id).first()
+    post = WallPost.objects.filter(user_id=friend_id)
+    return render(request, "blog/friend_page.html", {"pageFriends": user, "user_post": [w.dict() for w in post]})
+
+    #
+    #
+    # def news(request):
+    #     return render(request, "blog/news.html")
+    #
+    #
+    # def my_messages(request):
+    #     return render(request, "blog/my_messages.html")
+    #
+    #
+    # def documents(request):
+    #     return render(request, "blog/documents.html")

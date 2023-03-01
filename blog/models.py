@@ -62,8 +62,10 @@ class WallPost(models.Model):
 
     def dict(self) -> dict:
         return {
+            "id": self.id,
             'text': self.text,
             'publish_date': self.dateTime,
+
         }
 
 # class Messages(models.Model):
