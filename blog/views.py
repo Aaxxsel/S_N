@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render
@@ -28,9 +29,9 @@ def registration(request):
                 return render(request, "blog/registration.html",
                               context={"error_email": "этот email уже занят"})
 
-            User.objects.create(first_name=name, email=email, last_name=lastname, password=password)
+            User.objects.create_user(first_name=name, email=email, last_name=lastname, password=password)
 
-            return redirect(authorization)
+            return redirect('authorization')
         else:
             return HttpResponse("не корректный ввод")
 
@@ -42,11 +43,10 @@ def authorization(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data["email"]
-            password = form.cleaned_data["password"]
-            user = User.objects.filter(email=email, password=password).first()
+            user = auth.authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password'])
             if user:
-                return redirect(my_pag)
+                auth.login(request, user)
+                return redirect("my_pag")
             else:
                 return render(request, "blog/authorization.html",
                               context={"error_message": "Неверный логин или пароль"})
@@ -57,8 +57,8 @@ def authorization(request):
 
 
 def my_pag(request):
-    men = ['Главная страница', 'cообщения', 'друзья', 'новости', 'документы']
-    return render(request, "blog/my_pag.html", {'men': men})
+
+    return render(request, "blog/my_pag.html", {'user': request.user})
 #
 #
 # def news(request):
