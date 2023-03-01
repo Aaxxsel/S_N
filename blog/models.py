@@ -54,10 +54,17 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
-# class WallPost(models.Model):
-#     text = models.CharField(max_length=500)
-#     dateTime = models.DateField(auto_now_add=True)
-#     user = models.ForeignKey(to='User', on_delete=models.PROTECT)
+
+class WallPost(models.Model):
+    text = models.CharField(max_length=500)
+    dateTime = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(to='User', on_delete=models.PROTECT)
+
+    def dict(self) -> dict:
+        return {
+            'text': self.text,
+            'publish_date': self.dateTime,
+        }
 
 # class Messages(models.Model):
 #     sender = models.ForeignKey(to='User', on_delete=models.PROTECT)

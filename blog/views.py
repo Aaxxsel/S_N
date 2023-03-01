@@ -1,10 +1,14 @@
 from django.contrib import auth
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
-from .forms import RegistrationForm, LoginForm
+from django.views.decorators.http import require_POST
+
+from .models import User, WallPost
+from .forms import RegistrationForm, LoginForm, New_wal_postForm
 from django.shortcuts import redirect
 from django.template import Context, Template
 
@@ -57,8 +61,26 @@ def authorization(request):
 
 
 def my_pag(request):
+    wall_post = WallPost.objects.filter(user_id=request.user.id)
+    return render(request, "blog/my_pag.html", {'user': request.user, 'wall_post': [w.dict() for w in wall_post]})
 
-    return render(request, "blog/my_pag.html", {'user': request.user})
+
+def new_wal_post(request):
+    if request.method == "POST":
+        form = New_wal_postForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data["text"]
+            WallPost.objects.create(text=text, user_id=request.user.id)
+    return redirect('my_pag')
+
+
+@require_POST
+@login_required
+def log_out(request):
+    logout(request)
+    return redirect('index')
+
+
 #
 #
 # def news(request):

@@ -1,6 +1,37 @@
+<form action="/log_out/" method="post">
+{% csrf_token %}
+<input type="submit" value="выход">
+
+</form>
+
+
+
 {{ user.first_name }}<br>
 {{ user.last_name }}<br><br><br>
 email
 {{ user.email }}<br><br>
 id
 {{ user.id }}<br><br>
+
+<form action="/new_wal_post/" method="post">
+    {% csrf_token %}
+    Создать новый пост
+    <input type='text' name="text"><br><br>
+
+    <input type="submit" value="создать">
+
+
+</form>
+
+{% if wall_post %}
+    {% for x in wall_post %}
+        <div>
+            <h3>{{ x.publish_date }}</h3>
+            <p>
+                {{ x.text }}
+            </p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+

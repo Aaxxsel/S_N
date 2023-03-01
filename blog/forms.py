@@ -12,3 +12,7 @@ class RegistrationForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.DecimalField()
+
+
+class New_wal_postForm(forms.Form):
+    text = forms.CharField(max_length=500, min_length=1)
