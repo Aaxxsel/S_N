@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}
 
-    {% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 
 </head>
-<body style="background: ghostwhite">
-<a style="color: blue" href="/my_pag/">моя страница</a>
-<a style="color: blue" href="/friends/">друзья</a>
-<form action="/log_out/" method="post">
-    {% csrf_token %}
-    <input type="submit" value="выход" style="color: darkred">
 
-</form>
+
+<body>
+
+<div id="menu">
+    {% if user.is_authenticated %}
+        <a href="/my_pag/">моя страница</a>
+        <a href="/friends/">друзья</a>
+        <form action="/log_out/" method="post">
+
+            {% csrf_token %}
+            <input type="submit" value="выход">
+        </form>
+    {% else %}
+        <a href="/authorization/">авторизация</a>
+        <a href="/registration/">регистрация</a>
+
+    {% endif %}
+
+</div>
 
 {% block content %}
     content

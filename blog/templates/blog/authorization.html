@@ -1,15 +1,22 @@
+{% extends 'blog/sample.html' %}
 
-<form action="/authorization/" method="post">
-    {% csrf_token %}
+{% block content %}
 
-    {% if error_message %}
-        <h3 style="color: darkred">{{ error_message }}</h3>
+    <form class="registration_form" action="/authorization/" method="post">
+        {% csrf_token %}
 
-    {% endif %}
+        {% if error_message %}
+            <h3 style="color: darkred">{{ error_message }}</h3>
 
-    Введите emeil:
-    <input type='text' name="email"><br><br>
-    Введите пароль:
-    <input type='password' name="password"><br><br>
-    <input type="submit" value="Принять">
-</form>
+        {% endif %}
+        <span>Введите emeil:</span>
+        <input type='text' name="email"  id="floatingInput" placeholder="name@mail.ru">
+        <span>Введите пароль:</span>
+        <input type='password' name="password"  id="floatingPassword" placeholder="Password">
+        <br><br>
+        <button type="submit">Вход</button>
+    </form>
+
+
+{% endblock %}
+

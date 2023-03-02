@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block content %}
+    <span>список пользователей</span><br><br>
     {% for x in friendsList %}
         {{ x.first_name }}
         <a href="/friend/{{ x.id }}/">перейти</a><br><br>

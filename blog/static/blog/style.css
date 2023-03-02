@@ -1,0 +1,42 @@
+.registration_form {
+    border: 2px solid burlywood;
+    padding: 20px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+
+    width: 200px;
+
+    border-radius: 10px;
+}
+
+input {
+    color: burlywood;
+}
+
+span {
+    color: burlywood;
+}
+
+button {
+    color: burlywood;
+}
+
+body {
+
+}
+
+#menu {
+    color: saddlebrown;
+    border: 2px solid burlywood;
+    padding: 20px;
+    margin-right: auto;
+    margin-left: auto;
+
+    width: 200px;
+
+    border-radius: 10px;
+
+
+
+}

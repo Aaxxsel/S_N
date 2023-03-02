@@ -1,37 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Регистрация</title>
-</head>
-<body>
+{% extends 'blog/sample.html' %}
 
-<form action="/registration/" method="post">
-    {% csrf_token %}
-    {% if error_message %}
-        <h3 style="color: darkred">{{ error_message }}</h3>
+{% block content %}
 
-    {% endif %}
+    <form class="registration_form" action="/registration/" method="post">
+        {% csrf_token %}
+        {% if error_message %}
+            <h3 style="color: darkred">{{ error_message }}</h3>
 
-    {% if error_email %}
-        <h3 style="color: darkred">{{ error_email}}</h3>
+        {% endif %}
 
-    {% endif %}
-    Введите имя:
-    <input type='text' name="name"><br><br>
-    Введите фамилию:
-    <input type='text' name="lastname"><br><br>
-    Введите emeil:
-    <input type='text' name="email"><br><br>
-    Введите пароль:
-    <input type='password' name="password"><br><br>
-    Введите пароль второй раз:
-    <input type='password' name="password_conf"><br><br>
+        {% if error_email %}
+            <h3 style="color: darkred">{{ error_email }}</h3>
 
-    <input type="submit" value="Принять">
+        {% endif %}
+        <span> Введите имя:</span>
+        <input type='text' name="name"><br><br>
+        <span>Введите фамилию:</span>
+        <input type='text' name="lastname"><br><br>
+        <span>Введите emeil:</span>
+        <input type='text' name="email"><br><br>
+        <span>Введите пароль:</span>
+        <input type='password' name="password"><br><br>
+        <span>Введите пароль второй раз:</span>
+        <input type='password' name="password_conf"><br><br>
 
-</form>
+        <input type="submit" value="Принять">
 
+    </form>
 
-</body>
-</html>
+{% endblock %}
