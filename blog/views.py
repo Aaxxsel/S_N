@@ -90,7 +90,7 @@ def friends(request):
 def friend(request, friend_id):
     user = User.objects.filter(id=friend_id).first()
     post = WallPost.objects.filter(user_id=friend_id)
-    return render(request, "blog/friend_page.html", {"pageFriends": user, "user_post": [w.dict() for w in post]})
+    return render(request, "blog/friend_page.html", {"friend": user, "user_post": [w.dict() for w in post]})
 
     #
     #

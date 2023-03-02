@@ -54,6 +54,13 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.first_name
 
+    def dict(self) -> dict:
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+
+        }
+
 
 class WallPost(models.Model):
     text = models.CharField(max_length=500)

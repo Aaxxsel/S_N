@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/sample.html' %}
+{% block title %}
+    друзья
+{% endblock %}
 
+{% block content %}
+    {% for x in friendsList %}
+        {{ x.first_name }}
+        <a href="/friend/{{ x.id }}/">перейти</a><br><br>
 
-{% for x in friendsList %}
-    {{ x.first_name }}
-    <a href="/friend/{{ x.id }}/">перейти</a><br><br>
+    {% endfor %}
 
-{% endfor %}
+{% endblock %}
 
-</body>
-</html>

@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% if pageFriends %}
-    email:
-    {{ pageFriends.email }}<br><br><br><br>
-    Имя:
-    {{ pageFriends.first_name }}<br><br>
-    Фамилия:
-    {{ pageFriends.last_name }}<br><br><br>
-{% endif %}
+{% extends 'blog/sample.html' %}
 
-записи:<br>
-{% if user_post %}
-    {% for foo in user_post %}
-        {{ foo.publish_date }}
-        {{ foo.text }}<br><br>
+{% block title %}
+    {% if friend %}
+        {{ friend.first_name }}
+    {% endif %}
+{% endblock %}
 
-    {% endfor %}
 
-{% endif %}
+{% block content %}
+    {% if friend %}
+        email:
+        {{ friend.email }}<br><br><br><br>
+        Имя:
+        {{ friend.first_name }}<br><br>
+        Фамилия:
+        {{ friend.last_name }}<br><br><br>
+    {% endif %}
 
-</body>
-</html>
+    записи:<br>
+    {% if user_post %}
+        {% for foo in user_post %}
+            {{ foo.publish_date }}
+            {{ foo.text }}<br><br>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}
+
