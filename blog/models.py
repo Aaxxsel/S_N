@@ -38,6 +38,7 @@ class User(AbstractBaseUser):
     created_date = models.DateField('created_date', auto_now_add=True)
     is_active = models.BooleanField('is_active', default=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    friends = models.ManyToManyField(to='User')
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
@@ -82,5 +83,3 @@ class WallPost(models.Model):
 #     text_messages = models.CharField(max_length=500)
 #
 #
-# class Friends(models.Model):
-#     friends_user = models.ForeignKey(to='User', on_delete=models.PROTECT)

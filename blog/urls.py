@@ -9,9 +9,10 @@ urlpatterns = [
     path('my_pag/', views.my_pag, name="my_pag"),
     path('new_wal_post/', views.new_wal_post, name="new_wal_post"),
     path('log_out/', views.log_out, name="log_out"),
-    path('friends/', views.friends, name="friends"),
-    path('friend/<int:friend_id>/', views.friend, name="friend"),
-    # path('my_messages/', views.my_messages),
+    path('friends/', views.friends_list, name="friends"),
+    path('friend/<int:friend_id>/', views.friend_wall, name="friend"),
+    path('my_friend/<int:friend_id>/', views.add_to_friend, name="add_to_friend"),
+    # path('messages/', views.messages),
     #     path('news/', views.news),
     #     path('documents/', views.documents),
 ]

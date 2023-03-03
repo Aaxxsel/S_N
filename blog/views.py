@@ -62,7 +62,8 @@ def authorization(request):
 
 def my_pag(request):
     wall_post = WallPost.objects.filter(user_id=request.user.id)
-    return render(request, "blog/my_pag.html", {'user': request.user, 'wall_post': [w.dict() for w in wall_post]})
+    return render(request, "blog/my_pag.html", {'user': request.user,
+                                                'wall_post': [w.dict() for w in wall_post]})
 
 
 def new_wal_post(request):
@@ -82,25 +83,36 @@ def log_out(request):
 
 
 @require_GET
-def friends(request):
-    friends_list = User.objects.filter().exclude(id=request.user.id)
-    return render(request, 'blog/friends.html', {'friendsList': friends_list})
+def friends_list(request):
+    users = User.objects.filter().exclude(id=request.user.id)
+    user = User.objects.filter(id=request.user.id).first()
+    friends = users.filter(id__in=user.friends.values('id'))
+    users = users.exclude(id__in=user.friends.values("id"))
+    return render(request, 'blog/friends.html', {'users': users,
+                                                 'friends': friends})
 
 
-def friend(request, friend_id):
+def friend_wall(request, friend_id):
     user = User.objects.filter(id=friend_id).first()
     post = WallPost.objects.filter(user_id=friend_id)
-    return render(request, "blog/friend_page.html", {"friend": user, "user_post": [w.dict() for w in post]})
+    return render(request, "blog/friend_page.html", {"friend": user,
+                                                     "user_post": [w.dict() for w in post]})
 
-    #
-    #
-    # def news(request):
-    #     return render(request, "blog/news.html")
-    #
-    #
-    # def my_messages(request):
-    #     return render(request, "blog/my_messages.html")
-    #
-    #
-    # def documents(request):
-    #     return render(request, "blog/documents.html")
+
+def add_to_friend(request, friend_id):
+    user = User.objects.filter(id=request.user.id).first()
+    friend = User.objects.filter(id=friend_id).first()
+    user.friends.add(friend)
+    return redirect('friends')
+#
+#
+# def news(request):
+#     return render(request, "blog/news.html")
+#
+#
+# def my_messages(request):
+#     return render(request, "blog/my_messages.html")
+#
+#
+# def documents(request):
+#     return render(request, "blog/documents.html")

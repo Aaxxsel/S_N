@@ -5,10 +5,19 @@
 
 {% block content %}
     <span>список пользователей</span><br><br>
-    {% for x in friendsList %}
+    {% for x in friends %}
         {{ x.first_name }}
-        <a href="/friend/{{ x.id }}/">перейти</a><br><br>
+        <a href="/friend/{{ x.id }}/">перейти</a>
+        <a href="/friend/{{ x.id }}/">сообщения</a>
+       {% endfor %}
 
+    <br><br><br><br>
+
+    <span>список пользователей</span><br><br>
+    {% for x in users %}
+        {{ x.first_name }}
+        <a href="/friend/{{ x.id }}/">перейти</a>
+        <a href="/my_friend/{{ x.id }}/">добавить в друзья</a><br><br>
     {% endfor %}
 
 {% endblock %}
